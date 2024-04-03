@@ -17,18 +17,17 @@ class Solution {
     public int kthSmallest(TreeNode root, int k) {
         if(root==null)
             return 0;
-        PriorityQueue <Integer>temp=new PriorityQueue<>();
+        List <Integer>temp=new ArrayList<>();
         treeToList(root,temp);
-        for(int i=0;i<k-1;i++){
-            temp.poll();
-        }
-        return temp.peek();
+        if(k>0 && k<=temp.size())
+            return temp.get(k-1);
+        return -1;
     }
-    public void treeToList(TreeNode root,PriorityQueue<Integer> temp){
+    public void treeToList(TreeNode root,List<Integer> temp){
         if(root==null)
             return;
-        temp.add(root.val);
         treeToList(root.left,temp);
+        temp.add(root.val);
         treeToList(root.right,temp);
     }
 }
