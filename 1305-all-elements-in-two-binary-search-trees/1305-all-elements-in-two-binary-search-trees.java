@@ -16,23 +16,16 @@
 class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
         List<Integer> res=new ArrayList<>();
-        helper1(root1,res);
-        helper2(root2,res);
+        helper(root1,res);
+        helper(root2,res);
         Collections.sort(res);
     return res;
     }
-    public void helper1(TreeNode root,List <Integer>res){
+    public void helper(TreeNode root,List <Integer>res){
         if(root==null)
             return;
         res.add(root.val);
-        helper1(root.left,res);
-        helper1(root.right,res);        
-    }
-    public void helper2(TreeNode root,List <Integer>res){
-        if(root==null)
-            return;
-        res.add(root.val);
-        helper2(root.left,res);
-        helper2(root.right,res);        
+        helper(root.left,res);
+        helper(root.right,res);        
     }
 }
