@@ -12,6 +12,8 @@ class Solution {
                 int j=nums[i];
                 while(hset.contains(j))
                     j++;
+    //The length of the consecutive sequence ending at 100 is 101 - 100 = 1
+    //like about we can see why we subtract j from nums[i] earlier we make j=nums[1]
                 ans=Math.max(ans,j-nums[i]);
             }
         }
