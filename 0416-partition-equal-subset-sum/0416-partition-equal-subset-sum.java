@@ -18,7 +18,7 @@ class Solution {
                     dp[i][j]=true;
             }
         }
-        
+        // checking it have sum or not
         for(int i=1;i<=n;i++){
             for(int j=1;j<=sum;j++){
                 if(nums[i-1]<=j){
