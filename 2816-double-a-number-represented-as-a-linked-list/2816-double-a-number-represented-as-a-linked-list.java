@@ -24,6 +24,7 @@ class Solution {
     }
     public ListNode doubleIt(ListNode head) {
         ListNode newHead=reverse(head);
+        //pointer to insert node in reverse order
         ListNode temp=null;
         int carry=0;
         while(newHead!=null){
