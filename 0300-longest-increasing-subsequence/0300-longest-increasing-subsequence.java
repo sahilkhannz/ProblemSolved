@@ -3,6 +3,7 @@ class Solution {
         int ans=1,n=nums.length;
         int dp[]=new int[n];
         Arrays.fill(dp,1);
+        
         for(int i=1;i<n;i++){
             for(int j=i-1;j>=0;j--){
                 if(nums[j]<nums[i]){
