@@ -52,6 +52,8 @@ class Solution {
             minute++;
         }
         if(freshOrange==0){
+            //due last rotten oranges 
+            //we make -1 last orange also check after that minute will increase by one
             return minute-1;
         }
         return -1;
