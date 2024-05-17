@@ -1,4 +1,10 @@
 class Solution {
+    public boolean isSafe(int i,int j,int n,int m){
+        if(i<0 || j<0 || i>=n || j>=m )
+            return false;
+        return true;
+    }
+    
     public void dfs(char[][]board,int i,int j,int n,int m){
         if(i<0 || j<0 || i>=n || j>=m || board[i][j]!='O')
             return;
@@ -11,17 +17,45 @@ class Solution {
     }
     public void solve(char[][] board) {
         int n=board.length,m=board[0].length;
-        boolean visited[][]=new boolean[n][m];
+        Queue<int[]>q=new LinkedList<>();
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if((i==0 || j==0) && board[i][j]=='O'){
-                    dfs(board,i,j,n,m);
+                    q.add(new int[]{i,j});
+                    board[i][j]='#';
                 }
                 if((i== n-1|| j==m-1) && board[i][j]=='O'){
-                    dfs(board,i,j,n,m);
+                    q.add(new int[]{i,j});
+                    board[i][j]='#';
                 }
             }
         }
+        while(!q.isEmpty()){
+            int size=q.size();
+            while(size-- != 0){
+                int []cell=q.poll();
+                int x=cell[0];
+                int y=cell[1];
+                if(isSafe(x-1,y,n,m) && board[x-1][y]=='O'){
+                    q.add(new int[]{x-1,y});
+                    board[x-1][y]='#';
+                }
+                if(isSafe(x+1,y,n,m) && board[x+1][y]=='O'){
+                    q.add(new int[]{x+1,y});
+                    board[x+1][y]='#';
+                }
+                if(isSafe(x,y-1,n,m) && board[x][y-1]=='O'){
+                    q.add(new int[]{x,y-1});
+                    board[x][y-1]='#';
+                }
+                if(isSafe(x,y+1,n,m) && board[x][y+1]=='O'){
+                    q.add(new int[]{x,y+1});
+                    board[x][y+1]='#';
+                }
+            }
+        }
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(board[i][j]=='O')
