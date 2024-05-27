@@ -1,38 +1,41 @@
 class Solution {
-     public int maxScoreWords(String[] words, char[] letters, int[] score) {
-        int[] count = new int[26];
-        int[] lettersCount = new int[26];
+    int ans,n;
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int freq[]=new int[26];
+        for(char ch: letters)
+            freq[ch-'a']++;
+        ans=Integer.MIN_VALUE;
+        n=words.length;
+        solve(words,letters,score,freq,0,0);
         
-        for (char c : letters) {
-            count[c - 'a']++;
-        }
-        
-        int ans = 0;
-        ans = backtracking(words, score, count, lettersCount, 0, 0, ans);
         return ans;
     }
-    
-    private int backtracking(String[] words, int[] score, int[] count, int[] lettersCount, int pos, int temp, int ans) {
-        for (int i = 0; i < 26; i++) {
-            if (lettersCount[i] > count[i]) return ans;
+    public  void solve(String[] words, char[] letters,int score[], int[] freq,int idx,int currScore) {
+        ans=Math.max(ans,currScore);
+        if(idx>=n){
+            return;
         }
+        //need to take of freq array not modify for not take part
+        //using clone method, if we directly store freq so it just pass refrence not copy the array
+        int[] tempFreq=freq.clone();
         
-        ans = Math.max(ans, temp);
-        
-        for (int i = pos; i < words.length; i++) {
-            for (char c : words[i].toCharArray()) {
-                lettersCount[c - 'a']++;
-                temp += score[c - 'a'];
-            }
+        int j=0,tempScore=0;
+        //check can we take it or not
+        while(j<words[idx].length()){
+            char c=words[idx].charAt(j);
+            freq[c-'a']--;
+            tempScore+=score[c-'a'];
+            if(freq[c-'a']<0)
+                break;
             
-            ans = backtracking(words, score, count, lettersCount, i + 1, temp, ans);
-            
-            for (char c : words[i].toCharArray()) {
-                lettersCount[c - 'a']--;
-                temp -= score[c - 'a'];
-            }
+            j++;
         }
+        // If we were able to take the entire word, explore this branch
+        if(j==words[idx].length())
+            solve(words,letters,score,freq,idx+1,currScore+tempScore);
         
-        return ans;
+        //not take
+        solve(words,letters,score,tempFreq,idx+1,currScore);
+        
     }
 }
