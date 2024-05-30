@@ -1,13 +1,14 @@
 class Solution {
     public int countTriplets(int[] arr) {
         int ans=0,n=arr.length;
-        
+        // we need to find subarray where xor is 0(zero)
         for(int i=0;i<n;i++){
             int xor=arr[i];
             for(int k=i+1;k<n;k++){
                 xor^=arr[k];
-                if(xor==0)
-                    ans+=(k-i);
+                if(xor==0){
+                    ans+=(k-i);//no of triple or how many no. place we can put j
+                }
             }
         }
         
